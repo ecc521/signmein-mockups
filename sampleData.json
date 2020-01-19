@@ -2,6 +2,7 @@
 	"classes": [
 		{
 			"name": "First Period",
+			"notes:": "Math II", 
 			"students": [
 				{
 					"name": "Joe",
@@ -24,6 +25,25 @@
 							"status": "suspicious"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Second Period",
+			"notes:": "Pre-Calc",
+			"students": [
+				{
+					"name": "Donald",
+					"history": [
+						{
+							"dateTime": 1579467570872,
+							"status": "present"
+						}
+					]
+				},
+				{
+					"name": "George",
+					"history": []
 				}
 			]
 		}
