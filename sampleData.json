@@ -3,7 +3,7 @@
 	"classes": [
 		{
 			"name": "First Period",
-			"notes:": "Math II",
+			"notes": "Math II",
 			"students": [
 				{
 					"name": "Joe",
@@ -31,7 +31,7 @@
 		},
 		{
 			"name": "Second Period",
-			"notes:": "Pre-Calc",
+			"notes": "Pre-Calc",
 			"students": [
 				{
 					"name": "Donald",
