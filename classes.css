@@ -13,14 +13,14 @@ h1 {
 	height: 40px;
 }
 
-#classes > tr:first-child {
-	background-color: lightgreen;
-}
-
 #classes > tr:nth-child(2n+1) {
 	background-color: #dddddd;
 }
 
 #classes > tr:nth-child(2n) {
 	background-color: #cccccc;
+}
+
+#classes > tr:first-child {
+	background-color: lightgreen;
 }
