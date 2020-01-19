@@ -10,6 +10,7 @@
 
 
   function createClassRow(classInfo) {
+      //Creates a row for the table.
       let tableRow = document.createElement("tr")
 
       function addTh(text) {
@@ -36,10 +37,14 @@
       notes: "Notes",
       students: "Number of Students"
   }))
+
   let classes = data.classes
   classes.forEach((classInfo) => {
+      //Add a row for the class. 
       table.appendChild(createClassRow(classInfo))
   })
+
+
 
 
 }())
