@@ -1,6 +1,9 @@
 ;(async function() {
   let request = await fetch("sampleData.json");
-  let classes = await request.json()
+  let data = await request.json()
+
+  console.log(data)
+  let header = document.querySelector("h1")
+  header.innerText = data.name + "'s Classes"
   
-  console.log(classes)
 }())
