@@ -1,4 +1,3 @@
-# signmein-mockups
+# signmein-website
 
-Mockup UIs for the signmein app. 
-
+Website for the SignMeIn App. 
