@@ -1,8 +1,9 @@
 {
+	"name": "Dr. Fun",
 	"classes": [
 		{
 			"name": "First Period",
-			"notes:": "Math II", 
+			"notes:": "Math II",
 			"students": [
 				{
 					"name": "Joe",
