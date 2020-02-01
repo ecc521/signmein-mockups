@@ -9,22 +9,30 @@ h1, h2 {
 
 }
 
-#classes > tr {
+.classRow {
 	height: 40px;
 }
 
-#classes > tr:hover {
+.classRow:hover {
 	filter: brightness(0.8); /*Darken the background on hover. */
 }
 
-#classes > tr:nth-child(2n+1) {
+.classRow:nth-child(2n+1) {
 	background-color: #dddddd;
 }
 
-#classes > tr:nth-child(2n) {
+.classRow:nth-child(2n) {
 	background-color: #cccccc;
 }
 
-#classes > tr:first-child {
+.classRow:first-child {
 	background-color: lightgreen;
+}
+
+.classInfoRow {
+	background-color: white;
+}
+
+.classInfoRow:hover {
+	background-color: white;
 }

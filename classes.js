@@ -12,6 +12,7 @@
   function createClassRow(classInfo) {
       //Creates a row for the table.
       let tableRow = document.createElement("tr")
+      tableRow.className = "classRow"
 
       function addTh(text) {
           let th = document.createElement("th")
@@ -58,14 +59,21 @@
   })
 
   function createClassView(classInfo) {
+      let row = document.createElement("tr")
+      let cell = document.createElement("th")
+      row.appendChild(cell)
+      cell.colSpan = 3
+
       let div = document.createElement("div")
+
       div.className = "classInfo"
 
       let name = document.createElement("h2")
       name.innerHTML = classInfo.name
       div.appendChild(name)
+      cell.appendChild(div)
 
-      return div
+      return row
   }
 
 
