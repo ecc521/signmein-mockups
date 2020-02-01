@@ -73,6 +73,37 @@
       div.appendChild(name)
       cell.appendChild(div)
 
+    
+    
+    let signins = []
+
+function GetInput (type){
+  var input = document.createElement("input")
+  input.placeholder = type
+  input.style.width = "75%"
+  div.appendChild(input)
+  return input
+}
+var Name = GetInput ("name")
+button = document.createElement("button")
+button.innerHTML = "Sign In"
+div.appendChild(button)
+function SignIn() {
+  var first = Name.value
+  var time = Date.now()
+
+signins.push({
+  Name: first,
+  time
+  })
+alert(JSON.stringify(signins), null, "\t")
+}
+button.onclick = SignIn
+
+    
+    
+    
+    
       return row
   }
 
