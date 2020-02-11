@@ -75,30 +75,36 @@
 
     
     
-    let signins = []
+let signins = []
 
-function GetInput (type){
+function GetInput(type) {
   var input = document.createElement("input")
   input.placeholder = type
   input.style.width = "75%"
-  div.appendChild(input)
+  document.body.appendChild(input)
   return input
 }
-var Name = GetInput ("name")
+var Name = GetInput("name")
 button = document.createElement("button")
 button.innerHTML = "Sign In"
-div.appendChild(button)
+document.body.appendChild(button)
 function SignIn() {
   var first = Name.value
-  var time = Date.now()
+  var time = new Date();
 
-signins.push({
-  Name: first,
-  time
+  signins.push({
+    Name: first,
+    time
   })
-alert(JSON.stringify(signins), null, "\t")
+  paragraph = document.createElement("p")
+  paragraph.innerHTML = first +" "+ time
+  document.body.appendChild(paragraph)
+  signins.push([name, time])
+  console.log(signins);
 }
 button.onclick = SignIn
+// time to make delete button
+
 
     
     
