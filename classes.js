@@ -107,7 +107,7 @@ function SignIn() {
   remove.innerHTML = "Remove"
   paragraph.appendChild(remove)
   remove.onclick = () => {
-    document.body.removeChild(paragraph)
+    cell.removeChild(paragraph)
   }
   return(Name)
 }
