@@ -100,7 +100,7 @@ function SignIn() {
   })
   let paragraph = document.createElement("p")
   paragraph.innerHTML = first + " " + time
-  document.body.appendChild(paragraph)
+  cell.appendChild(paragraph)
   signins.push([name, time])
   console.log(signins);
   let remove = document.createElement("button")
