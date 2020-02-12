@@ -81,7 +81,7 @@ function GetInput(type) {
   var input = document.createElement("input")
   input.placeholder = type
   input.style.width = "75%"
-  cell.appendChild(input)
+  div.appendChild(input)
   return input
 }
 
@@ -89,7 +89,7 @@ function GetInput(type) {
 var Name = GetInput("name")
 button = document.createElement("button")
 button.innerHTML = "Sign In"
-cell.appendChild(button)
+div.appendChild(button)
 function SignIn() {
   var first = Name.value
   var time = new Date();
@@ -100,14 +100,14 @@ function SignIn() {
   })
   let paragraph = document.createElement("p")
   paragraph.innerHTML = first + " " + time
-  cell.appendChild(paragraph)
+  div.appendChild(paragraph)
   signins.push([name, time])
   console.log(signins);
   let remove = document.createElement("button")
   remove.innerHTML = "Remove"
   paragraph.appendChild(remove)
   remove.onclick = () => {
-    cell.removeChild(paragraph)
+    div.removeChild(paragraph)
   }
   return(Name)
 }
