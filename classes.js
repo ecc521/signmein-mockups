@@ -81,7 +81,7 @@ function GetInput(type) {
   var input = document.createElement("input")
   input.placeholder = type
   input.style.width = "75%"
-  document.body.appendChild(input)
+  cell.appendChild(input)
   return input
 }
 
@@ -89,7 +89,7 @@ function GetInput(type) {
 var Name = GetInput("name")
 button = document.createElement("button")
 button.innerHTML = "Sign In"
-document.body.appendChild(button)
+cell.appendChild(button)
 function SignIn() {
   var first = Name.value
   var time = new Date();
