@@ -84,6 +84,8 @@ function GetInput(type) {
   document.body.appendChild(input)
   return input
 }
+
+
 var Name = GetInput("name")
 button = document.createElement("button")
 button.innerHTML = "Sign In"
@@ -96,14 +98,21 @@ function SignIn() {
     Name: first,
     time
   })
-  paragraph = document.createElement("p")
-  paragraph.innerHTML = first +" "+ time
+  let paragraph = document.createElement("p")
+  paragraph.innerHTML = first + " " + time
   document.body.appendChild(paragraph)
   signins.push([name, time])
   console.log(signins);
+  let remove = document.createElement("button")
+  remove.innerHTML = "Remove"
+  paragraph.appendChild(remove)
+  remove.onclick = () => {
+    document.body.removeChild(paragraph)
+  }
+  return(Name)
 }
 button.onclick = SignIn
-// time to make delete button
+
 
 
     
