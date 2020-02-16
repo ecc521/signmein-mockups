@@ -73,37 +73,49 @@
       div.appendChild(name)
       cell.appendChild(div)
 
-    
-    
+
+
     let signins = []
 
-function GetInput (type){
-  var input = document.createElement("input")
-  input.placeholder = type
-  input.style.width = "75%"
-  div.appendChild(input)
-  return input
-}
-var Name = GetInput ("name")
-button = document.createElement("button")
-button.innerHTML = "Sign In"
-div.appendChild(button)
-function SignIn() {
-  var first = Name.value
-  var time = Date.now()
+    function GetInput (type){
+      var input = document.createElement("input")
+      input.placeholder = type
+      input.style.width = "75%"
+      div.appendChild(input)
+      return input
+    }
 
-signins.push({
-  Name: first,
-  time
-  })
-alert(JSON.stringify(signins), null, "\t")
-}
-button.onclick = SignIn
+    var Name = GetInput ("name")
+    button = document.createElement("button")
+    button.innerHTML = "Sign In"
+    div.appendChild(button)
+    function SignIn() {
+      var first = Name.value
+      var time = Date.now()
 
-    
-    
-    
-    
+
+      let currentStudent;
+      classInfo.students.forEach((student) => {
+          if (student.name.toLowerCase() === first.toLowerCase()) {
+              currentStudent = student
+          }
+      })
+
+      if (!currentStudent && confirm(first + " is not in the class. Would you like to add them?")) {
+          currentStudent = {}
+          classInfo.students.push(currentStudent)
+          currentStudent.name = first
+      }
+
+        currentStudent.history = currentStudent.history || {}
+        currentStudent.history.push({time, status:"present"})
+    }
+    button.addEventListener("click", SignIn)
+
+
+
+
+
       return row
   }
 
