@@ -33,6 +33,19 @@ h1, h2 {
 	background-color: white;
 }
 
+      .signInHistoryRow {
+      	height: 40px;
+        background-color: lightblue; 
+      }
+      
+      .signInHistoryTable {
+              border-collapse: collapse;
+        width:100%;
+      }
+      
+      .signInHistoryRow:nth-child(even) {
+      	background-color: #FFAAFF;
+      }
 .classInfoRow:hover {
 	background-color: white;
 }
