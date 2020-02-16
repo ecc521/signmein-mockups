@@ -127,7 +127,7 @@
 
       classInfo.students.forEach(function(student) {
         console.log(student)
-        div.innerHTML += "<br>" + student.name  + " last signed in at " + student.history.dateTime[0]
+        div.innerHTML += "<br>" + student.name  + " last signed in at " + student.dateTime[0]
       })
     
       return row
