@@ -128,23 +128,31 @@
       classInfo.students.forEach(function(student) {
         console.log(student)
         div.innerHTML += "<br>" + student.name  + " last signed in at " + student.history.dateTime[0]
+	      div.appendChild(createStudentSignInHistory(student))
       })
     
-    function createStudentSignInHistory(signIn) {
-      	let row = document.createElement("tr")
+    function createStudentSignInHistory(student) {
+	    let table = document.createElement("table")
+	    table.className = "signInHistoryTable"
+	    
+	student.history.forEach((signIn) => {
+	      	let row = document.createElement("tr")
         
-        let time = document.createElement("th")
-        let date = new Date(signIn.dateTime)
-        time.innerHTML = date
-				row.appendChild(time)
-        
-        var status = document.createElement("th")
-        status.innerHTML = signIn.status
-        row.appendChild(status)
-        
-        row.className = "signInHistoryRow"
-        
-        table.appendChild(row)
+		let time = document.createElement("th")
+		let date = new Date(signIn.dateTime)
+		time.innerHTML = date
+					row.appendChild(time)
+
+		var status = document.createElement("th")
+		status.innerHTML = signIn.status
+		row.appendChild(status)
+
+		row.className = "signInHistoryRow"
+
+		table.appendChild(row)
+	})
+	    
+	    return table
       }
     
     
