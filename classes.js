@@ -42,23 +42,37 @@
   let classes = data.classes
   classes.forEach((classInfo) => {
       //Add a row for the class.
-      let row =  createClassRow(classInfo)
+      let row = createClassRow(classInfo)
+
       table.appendChild(row)
 
       let expanded = false
-      row.addEventListener("click", function() {
+
+      function updateRow() {
+          //For when the row needs to be updated
+          let newRow = createClassRow(classInfo)
+          newRow.addEventListener("click", clickListener)
+          row.replaceWith(newRow)
+          row = newRow
+      }
+
+      row.addEventListener("click", clickListener)
+
+
+      function clickListener() {
           if (expanded) {
               row.nextElementSibling.remove()
           }
           else {
-              let classView = createClassView(classInfo)
+              let classView = createClassView(classInfo, updateRow)
               row.parentNode.insertBefore(classView, row.nextElementSibling)
           }
           expanded = !expanded
-      })
+      }
   })
 
-  function createClassView(classInfo) {
+  function createClassView(classInfo, updateRow) {
+
       let row = document.createElement("tr")
       let cell = document.createElement("th")
       row.appendChild(cell)
@@ -74,47 +88,42 @@
       cell.appendChild(div)
 
 
-
-    let signins = []
-
-    function GetInput (type){
-      var input = document.createElement("input")
-      input.placeholder = type
-      input.style.width = "75%"
-      div.appendChild(input)
-      return input
-    }
-
-    var Name = GetInput ("name")
-    button = document.createElement("button")
-    button.innerHTML = "Sign In"
-    div.appendChild(button)
-    function SignIn() {
-      var first = Name.value
-      var time = Date.now()
-
-
-      let currentStudent;
-      classInfo.students.forEach((student) => {
-          if (student.name.toLowerCase() === first.toLowerCase()) {
-              currentStudent = student
-          }
-      })
-
-      if (!currentStudent && confirm(first + " is not in the class. Would you like to add them?")) {
-          currentStudent = {}
-          classInfo.students.push(currentStudent)
-          currentStudent.name = first
+      function GetInput (type){
+          var input = document.createElement("input")
+          input.placeholder = type
+          input.style.width = "75%"
+          div.appendChild(input)
+          return input
       }
 
-        currentStudent.history = currentStudent.history || {}
-        currentStudent.history.push({time, status:"present"})
-    }
-    button.addEventListener("click", SignIn)
+      var Name = GetInput ("name")
+      button = document.createElement("button")
+      button.innerHTML = "Sign In"
+      div.appendChild(button)
+      function SignIn() {
+          var first = Name.value
+          var time = Date.now()
 
 
+          let currentStudent;
+          classInfo.students.forEach((student) => {
+              if (student.name.toLowerCase() === first.toLowerCase()) {
+                  currentStudent = student
+              }
+          })
 
+          if (!currentStudent && confirm(first + " is not in the class. Would you like to add them?")) {
+              currentStudent = {}
+              classInfo.students.push(currentStudent)
+              currentStudent.name = first
+          }
 
+          currentStudent.history = currentStudent.history || []
+          currentStudent.history.push({time, status:"present"})
+          updateRow()
+          row.replaceWith(createClassView(classInfo, updateRow))
+      }
+      button.addEventListener("click", SignIn)
 
       return row
   }
