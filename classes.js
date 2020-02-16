@@ -129,7 +129,7 @@
         console.log(student)
 	      
 	      div.appendChild(createStudentSignInHistory(student))
-	      if (student.history[0]) {
+	      if (student.history) {
 		       div.innerHTML += "<br>" + student.name  + " last signed in at " + student.history[0]
 	      }
 	      
