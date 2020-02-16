@@ -127,7 +127,12 @@
 
       classInfo.students.forEach(function(student) {
         console.log(student)
+	      
 	      div.appendChild(createStudentSignInHistory(student))
+	      if (student.history[0]) {
+		       div.innerHTML += "<br>" + student.name  + " last signed in at " + student.history[0]
+	      }
+	      
       })
 
     function createStudentSignInHistory(student) {
