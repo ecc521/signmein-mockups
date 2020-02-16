@@ -125,7 +125,13 @@
       }
       button.addEventListener("click", SignIn)
 
+      classInfo.students.forEach(function(student) {
+        console.log(student)
+        div.innerHTML += student.name + "<br>"
+      })
+    
       return row
+
   }
 
 
