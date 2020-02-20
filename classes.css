@@ -13,7 +13,7 @@ h1, h2 {
 	height: 40px;
 }
 
-.classRow:hover {
+.classRow:hover, .studentCard:hover {
 	filter: brightness(0.8); /*Darken the background on hover. */
 }
 
@@ -35,17 +35,19 @@ h1, h2 {
 
       .signInHistoryRow {
       	height: 40px;
-        background-color: lightblue; 
       }
       
       .signInHistoryTable {
-              border-collapse: collapse;
+        border-collapse: collapse;
         width:100%;
       }
-      
-      .signInHistoryRow:nth-child(even) {
-      	background-color: #FFAAFF;
-      }
+
 .classInfoRow:hover {
 	background-color: white;
+}
+
+.studentCard {
+	padding: 15px;
+	background-color: #ddddff;
+	cursor: pointer;
 }
