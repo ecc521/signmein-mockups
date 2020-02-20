@@ -156,7 +156,7 @@
 	      	let row = document.createElement("tr")
 
 		let time = document.createElement("th")
-		let date = new Date(signIn.dateTime)
+		let date = new Date(signIn.dateTime).toLocaleTime()
 		time.innerHTML = date
 					row.appendChild(time)
 
