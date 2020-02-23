@@ -1,6 +1,65 @@
 ;(async function() {
-  let request = await fetch("sampleData.json");
-  let data = await request.json()
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyDWxpurKLW0wtGLZnrl0JgwIjxYlxOllBA",
+			authDomain: "signmein-b6efa.firebaseapp.com",
+			databaseURL: "https://signmein-b6efa.firebaseio.com",
+			projectId: "signmein-b6efa",
+			storageBucket: "signmein-b6efa.appspot.com",
+			messagingSenderId: "329477146944",
+			appId: "1:329477146944:web:8c63522ab3bc6d9b5dd2a5",
+			measurementId: "G-GYHSX42BKL"
+		};
+		// Initialize Firebase
+		var app = firebase.initializeApp(firebaseConfig);
+		var db = firebase.firestore(app);
+		firebase.analytics();
+		
+  //let request = await fetch("sampleData.json");
+  //let data = await request.json()
+  var idTeacher;
+  var idClass;
+  var idStudent;
+  let data = {}
+
+  db.collection("Teachers").get().then(querySnapshot => {
+	querySnapshot.forEach(doc => {
+		data.name = doc.id;
+		idTeacher = doc.id;
+		console.log(idTeacher);
+		db.collection("Teachers").doc(idTeacher).collection("Classes").get().then(querySnapshot => {
+			querySnapshot.forEach(doc => {
+				data.classes = querySnapshot.docs.map(doc => doc.id);
+				idClass = doc.id;
+				console.log(idClass);
+				db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").get().then(querySnapshot => {
+					querySnapshot.forEach(doc => {
+					data.classes[idClass] = querySnapshot.docs.map(doc => doc.id);
+					idStudent = doc.id;
+					console.log(idStudent);
+					});
+				});
+			});
+		});
+	});
+  });
+   
+  //data.classes.students.name.history = []
+  /*data.classes.students.name.history.dateTime = db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).onSnapshot(function(doc){
+	  let student = doc.data();
+	  Object.keys(student).forEach(function(key){
+		  console.log(key);
+		  return {key};
+	  });
+  });
+  data.classes.students.name.history.status = db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).get().then(function(doc) {
+	  if (doc.exists) {
+		  console.log(doc.data);
+		  return {docdata};
+	  } else {
+		  console.log("No such document!");
+	  }
+  }); */
 
   console.log(data)
   let header = document.querySelector("h1")
