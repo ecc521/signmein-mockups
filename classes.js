@@ -119,7 +119,7 @@
       }
 
       addTh(classInfo.name)
-      addTh(classInfo.notes)
+      addTh(classInfo.notes || "")
       if (typeof classInfo.students === "string") {
           //For creating the header
           addTh(classInfo.students)
