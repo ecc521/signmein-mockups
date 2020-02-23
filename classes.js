@@ -155,14 +155,12 @@
           return input
       }
 
-      var Name = GetInput ("name")
+      var Name = GetInput ("Student Name")
       button = document.createElement("button")
       button.innerHTML = "Sign In"
       div.appendChild(button)
       function SignIn() {
           var first = Name.value
-          var time = Date.now()
-
 
           let currentStudent;
           classInfo.students.forEach((student) => {
@@ -178,15 +176,35 @@
           }
 
           currentStudent.history = currentStudent.history || []
-          currentStudent.history.push({time, status:"present"})
+          currentStudent.history.push({dateTime: Date.now(), status:"present"})
           updateRow()
           row.replaceWith(createClassView(classInfo, updateRow))
       }
       button.addEventListener("click", SignIn)
 
       classInfo.students.forEach(function(student) {
-        console.log(student)
-	      div.appendChild(createStudentSignInHistory(student))
+		  let studentElem = document.createElement("div")
+		  studentElem.className = "studentCard"
+		  studentElem.innerHTML = student.name
+	      if (student.history[0]) {
+		       studentElem.innerHTML += " last signed in at " + new Date(student.history[0].dateTime).toLocaleString()
+	      }
+		  else {
+		  	   studentElem.innerHTML += " has never signed in"
+		  }
+		  let expanded = false
+		  studentElem.addEventListener("click", function() {
+			  if (expanded) {
+			  	studentElem.nextElementSibling.remove()
+			  }
+			  else {
+			  	let studentHistory = createStudentSignInHistory(student)
+				studentElem.parentNode.insertBefore(studentHistory, studentElem.nextElementSibling)
+			  }
+			  expanded = !expanded
+		  })
+		  div.appendChild(studentElem)
+	      
       })
 
     function createStudentSignInHistory(student) {
@@ -197,13 +215,20 @@
 	      	let row = document.createElement("tr")
 
 		let time = document.createElement("th")
-		let date = new Date(signIn.dateTime)
+		let date = new Date(signIn.dateTime).toLocaleString()
 		time.innerHTML = date
 					row.appendChild(time)
 
 		var status = document.createElement("th")
 		status.innerHTML = signIn.status
 		row.appendChild(status)
+		
+		if (signIn.status === "present") {
+			row.style.backgroundColor = "lightgreen"
+		}
+		else if (signIn.status === "suspicious") {
+			row.style.backgroundColor = "#FFAAFF"
+		}
 
 		row.className = "signInHistoryRow"
 
