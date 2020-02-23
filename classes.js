@@ -14,7 +14,7 @@
 		var app = firebase.initializeApp(firebaseConfig);
 		var db = firebase.firestore(app);
 		firebase.analytics();
-		
+
   //let request = await fetch("sampleData.json");
   //let data = await request.json()
   var idTeacher;
@@ -22,28 +22,66 @@
   var idStudent;
   let data = {}
 
-  db.collection("Teachers").get().then(querySnapshot => {
-	querySnapshot.forEach(doc => {
-		data.name = doc.id;
-		idTeacher = doc.id;
-		console.log(idTeacher);
-		db.collection("Teachers").doc(idTeacher).collection("Classes").get().then(querySnapshot => {
-			querySnapshot.forEach(doc => {
-				data.classes = querySnapshot.docs.map(doc => doc.id);
-				idClass = doc.id;
-				console.log(idClass);
-				db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").get().then(querySnapshot => {
-					querySnapshot.forEach(doc => {
-					data.classes[idClass] = querySnapshot.docs.map(doc => doc.id);
-					idStudent = doc.id;
-					console.log(idStudent);
-					});
-				});
-			});
-		});
-	});
-  });
-   
+  let teachersCollection = await db.collection("Teachers").get()
+  let teacherDocs = teachersCollection.docs
+  for (let i=0;i<teacherDocs.length;i++) {
+      let teacherDoc = teacherDocs[i]
+      data.name = teacherDoc.id
+      let idTeacher = teacherDoc.id
+      console.log(idTeacher)
+
+      let classesCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").get()
+      let classesDocs = classesCollection.docs
+      data.classes = []
+      for (let i=0;i<classesDocs.length;i++) {
+          let classDoc = classesDocs[i]
+          idClass = classDoc.id
+          console.log(idClass)
+
+          let classObj = {}
+          data.classes.push(classObj)
+          classObj.name = classDoc.id
+
+          let studentsArr = []
+          classObj.students = studentsArr
+
+          let studentsCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").get()
+          let studentsDocs = studentsCollection.docs
+          for (let i=0;i<studentsDocs.length;i++) {
+              let studentDoc = studentsDocs[i]
+              let idStudent = studentDoc.id
+              console.log(idStudent)
+
+              let student = {}
+              studentsArr.push(student)
+              student.name = studentDoc.id
+
+          }
+      }
+  }
+
+  console.log(teachersCollection)
+  /*teachersCollection.forEach(doc => {
+      data.name = doc.id
+      let idTeacher = doc.id
+      console.log(idTeacher);
+
+      let classesCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").get()
+      classesCollection.forEach(doc => {
+          data.classes = querySnapshot.docs.map(doc => doc.id);
+          idClass = doc.id;
+          console.log(idClass);
+          let studentsCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").get()
+          studentsCollection.forEach(doc => {
+          data.classes[idClass] = querySnapshot.docs.map(doc => doc.id);
+          idStudent = doc.id;
+          console.log(idStudent);
+          })
+      }
+  })
+  */
+
+
   //data.classes.students.name.history = []
   /*data.classes.students.name.history.dateTime = db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).onSnapshot(function(doc){
 	  let student = doc.data();
@@ -62,6 +100,7 @@
   }); */
 
   console.log(data)
+  console.log(data.name)
   let header = document.querySelector("h1")
   header.innerText = data.name + "'s Classes"
 
@@ -204,7 +243,7 @@
 			  expanded = !expanded
 		  })
 		  div.appendChild(studentElem)
-	      
+
       })
 
     function createStudentSignInHistory(student) {
@@ -222,7 +261,7 @@
 		var status = document.createElement("th")
 		status.innerHTML = signIn.status
 		row.appendChild(status)
-		
+
 		if (signIn.status === "present") {
 			row.style.backgroundColor = "lightgreen"
 		}
