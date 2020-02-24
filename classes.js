@@ -36,7 +36,7 @@
       for (let i=0;i<classesDocs.length;i++) {
           let classDoc = classesDocs[i]
           idClass = classDoc.id
-          console.log(idClass)
+          //console.log(idClass)
 
           let classObj = {}
           data.classes.push(classObj)
@@ -50,57 +50,32 @@
           for (let i=0;i<studentsDocs.length;i++) {
               let studentDoc = studentsDocs[i]
               let idStudent = studentDoc.id
-              console.log(idStudent)
+              //console.log(idStudent)
 
               let student = {}
               studentsArr.push(student)
               student.name = studentDoc.id
-
+			  
+			  let historyArr = []
+			  student.history = historyArr
+			  
+			  let studentDocument = await db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).get()
+			  let studentData = studentDocument.data()
+			  let dateList = Object.keys(studentData)
+			  for (let i = 0;i<dateList.length;i++) {
+				  let dateTime = dateList[i]
+				  let status = studentData[dateTime]
+				  
+				  let historyObj = {}
+				  historyArr.push(historyObj)
+				  historyObj.dateTime = dateTime
+				  historyObj.status = status 
+			  }
           }
       }
   }
 
-  console.log(teachersCollection)
-  /*teachersCollection.forEach(doc => {
-      data.name = doc.id
-      let idTeacher = doc.id
-      console.log(idTeacher);
-
-      let classesCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").get()
-      classesCollection.forEach(doc => {
-          data.classes = querySnapshot.docs.map(doc => doc.id);
-          idClass = doc.id;
-          console.log(idClass);
-          let studentsCollection = await db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").get()
-          studentsCollection.forEach(doc => {
-          data.classes[idClass] = querySnapshot.docs.map(doc => doc.id);
-          idStudent = doc.id;
-          console.log(idStudent);
-          })
-      }
-  })
-  */
-
-
-  //data.classes.students.name.history = []
-  /*data.classes.students.name.history.dateTime = db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).onSnapshot(function(doc){
-	  let student = doc.data();
-	  Object.keys(student).forEach(function(key){
-		  console.log(key);
-		  return {key};
-	  });
-  });
-  data.classes.students.name.history.status = db.collection("Teachers").doc(idTeacher).collection("Classes").doc(idClass).collection("Students").doc(idStudent).get().then(function(doc) {
-	  if (doc.exists) {
-		  console.log(doc.data);
-		  return {docdata};
-	  } else {
-		  console.log("No such document!");
-	  }
-  }); */
-
   console.log(data)
-  console.log(data.name)
   let header = document.querySelector("h1")
   header.innerText = data.name + "'s Classes"
 
