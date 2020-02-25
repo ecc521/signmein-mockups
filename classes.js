@@ -68,7 +68,7 @@
 				  
 				  let historyObj = {}
 				  historyArr.push(historyObj)
-				  historyObj.dateTime = dateTime
+				  historyObj.dateTime = Number(dateTime)
 				  historyObj.status = status 
 			  }
           }
